@@ -27,36 +27,35 @@
 
 <script>
 import Snackbar from "./components/Snackbar";
-import marked from "marked";
 import axios from "axios";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Snackbar
   },
   data () {
     return {
-      input: '',
-      result: ''
-    }
+      input: "",
+      result: ""
+    };
   },
   methods: {
     showSnackbar: function(type, message) {
       this.$refs.snackbar.show(type, message);
     },
     search: function(input) {
-      const lines = input.split('\n');
+      const lines = input.split("\n");
 
       if (lines.length < 2)
-        return
+        return;
       
       const bondType = lines.shift();
-      let searchQuery = '';
+      let searchQuery = "";
 
       lines.forEach(number => {
         if (parseInt(number))
-          searchQuery += `${number},${number}|`
+          searchQuery += `${number},${number}|`;
       });
 
       const targetUrl = `https://hamariweb.com/finance/GetPriceBondResult.aspx?d=&b=${bondType}&s=${searchQuery}`;
@@ -65,8 +64,8 @@ export default {
         this.result = res.data;
       }).catch(err => {
         this.showSnackbar("error", String(err));
-      })
+      });
     }
   }
-}
+};
 </script>
